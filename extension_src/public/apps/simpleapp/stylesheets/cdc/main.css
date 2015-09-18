@@ -1,0 +1,255 @@
+/* Blue main: #0E538E; */
+/* DD background: #E2F0F2; */
+
+.main{
+	min-height: 900px;
+	margin-left: -10px !important; 
+}
+.contentColumn{
+	padding-right: 3px;
+  	/*box-shadow: 5px 0 2px -3px #0E538E;*/
+}
+ul{
+	list-style: none;
+}
+div,p,h1,h2,h3,h4,h5,h6,label,li{
+	font-family: Century Gothic, Arial, sans-serif;
+	color : #0E538E;
+}
+h2.header{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	font-size: 3em;
+}
+.header > img{
+	max-width: 972px;
+}
+.htWrapper{
+	padding: 5px;
+	border: 5px solid #0E538E;
+	font-size: .5em;
+	margin-bottom: 0px;
+	font-size: 2em;
+	background-color: #FFB84D;
+	color: #0E538E;
+	width: 305;
+	border-left: none;
+  	border-right: none;
+}
+.ht{
+	color:#0E538E ;
+}
+.breadcrumb{
+	margin-bottom: 0px;
+	background-color: white;
+  	color: black !important;
+  	box-shadow: 0 1px 1px #0E538E;
+  	border-radius: 0px;
+}
+.breadcrumb a{
+	color: #0E538E;
+}
+.input-group .form-control.custom{
+	border-radius: 0px;
+	-o-border-radius: 0px;
+	-moz-border-radius: 0px;
+	-ms-border-radius: 0px;
+	-webkit-border-radius: 0px;
+	box-shadow: none;
+	-o-box-shadow: none;
+	-moz-box-shadow: none;
+	-ms-box-shadow: none;
+	-webkit-box-shadow: none;
+	border: none;
+  	border-bottom: 1px solid #888;
+  	height: 40px;
+}
+.input-group button.custom{
+  	width: 101%;
+  	height: 40px;
+  	padding-bottom: 8px;
+  	background-color: white;
+  	border-bottom: 1px solid #888;
+  	color: #0E538E;
+}
+.searchContainer{
+	margin-top: 10px;
+}
+.searchContainer label{
+	font-weight: 200;
+  	font-size: 1.4em;
+  	color: #0E538E;
+}
+form.blue-top{
+	border-top: 8px solid #0E538E;
+}
+button.round{
+	border-radius: 50px;
+	padding: 6px;
+	width: 32px;
+	color: white;
+	background-color: #0E538E;
+	margin-top: -8px;
+	margin-right: 5px;
+	text-align: center;
+}
+.link-group{
+	padding-left: 40px;
+}
+.link-group ul{
+	padding-left: 0px;
+}
+.link-group h1{
+	margin-bottom: 0px;
+}
+.links{
+	border-top: 8px solid #0E538E;
+}
+.links li{
+	color: black;
+	padding-bottom: 6px;
+  	padding-top: 6px;
+  	border-bottom: 1px solid #AAA
+}
+.links a{
+	color: black;
+}
+.links a > i, i.fa.off{
+	color: #0E538E;
+	margin-right: 10px;
+}
+
+/* Topics dropdown */
+
+.dropdown{
+	background-color: #E2F0F2;
+	padding-top: 0px;
+	overflow-x: hidden; 
+}
+.topics{
+	background-color: #E2F0F2;
+	padding-left: 0px;
+	margin-top: 30px;
+}
+.topics li{
+	color: black;
+	padding-bottom: 5px;
+  	padding-top: 5px;
+  	border-bottom: 1px solid #AAA
+}
+.topic-header{
+	text-align: center;
+	font-size: 1.2em;
+	border-bottom: 3px solid;
+	position: fixed;
+	padding-top: 3px;
+	background-color: #E2F0F2;
+	height: 30px;
+	overflow-y: hidden;
+	overflow-x: hidden; 
+}
+.topic-header p{
+	margin: 0px;
+}
+.topic-header p > i{
+	margin-right: 10px;
+	cursor: pointer;
+}
+i.more{
+	margin-right: 10px;
+	font-size: 16px;
+	color: #0E538E;
+	margin-left: 6px;
+}
+.topic-header p > span{
+	font-weight: bold;
+}
+.topic{
+	cursor: pointer;
+}
+.topic:hover, .topic:hover i, .topic:hover p, pr.topic:hover span, .pr.topic:hover div, .pr.topic:hover a{
+	background-color: #0E538E;
+	color: white;
+}
+.info{
+	background-color: #E2F0F2;
+	cursor: auto;
+	margin-top: 4px;
+}
+i.si{
+	font-size: 30px;
+  	color: #5fb7f1;
+  	margin-right: 10px;
+}
+/* Gamification */
+.widgetContainer, .gameContainer{
+	padding-top: 0px;
+}
+.widget{
+	text-align: left !important;
+	margin-top: 4px;
+}
+.widget h5{
+	margin-top: 0px;
+}
+.widget h5, .gHeader{
+	letter-spacing: 0px;
+	border-bottom: 8px solid #0E538E;
+	margin-bottom: 1px;
+}
+.metric{
+	letter-spacing: -.3px;
+}
+.gamificationColumn{
+	padding-left: 0px;	
+}
+.lob{
+	text-align: center;
+	padding: 2px;
+	background-color: #0E538E;
+	color: white;
+}
+.avatar{
+	border-radius: 30px;
+}
+.person{
+	padding: 5px;
+}
+.gHeader{
+	font-size: 1.7em;
+  	font-weight: 200;
+  	color: #555;
+  	text-align: left;
+}
+.gInfo{
+	width: 94%;
+	background-color: #0E538E;
+	margin-bottom: 4px;
+	margin-top: -1px;
+	color: white;
+	border-top: 1px solid white;
+}
+.sublink{
+	display: block;
+	color: #0E538E;
+	font-size: .8em;
+}
+.jaFilter h1{
+	margin-right: 0px;
+	padding-right: 0px;
+}
+.jaFilter .input-group{
+	margin-top: 35px;
+	padding-left: 0px;
+}
+.jaFilter .form-control{
+	padding: 3px;
+}
+.jaFilter button, .jaFilter .form-control{
+	height: 20px !important;
+}
+.esc{
+	background-color: red;
+	color: white;
+	padding: 2px;
+}

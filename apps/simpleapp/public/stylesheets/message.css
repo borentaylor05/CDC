@@ -1,0 +1,111 @@
+div.container.main{
+	padding-left: 40px;
+	padding-right: 40px;
+	padding-bottom: 50px;
+	width: 900px;
+	height: 600px;
+	overflow: scroll;
+	font-family: Tahoma, sans-serif;
+}
+.tiny{
+	font-size: .6em;
+	margin-left: 8px;
+}
+a{
+	cursor: pointer;
+}
+.hide{
+	display: none;
+}
+button{
+	margin:5px;
+}
+label{
+	margin-top: 10px;
+	margin-bottom: 2px;
+}
+.search{
+	box-shadow: 4px 4px 10px #888;
+	width: 390px;
+	margin: 10px;
+	padding: 10px;
+}
+.searchContainer{
+	margin-left: auto;
+	margin-right: auto;
+}
+.searchResults{
+	overflow-y: auto;
+}
+.result{
+	display: block;
+	padding: 10px;
+	border-bottom: 1px solid #DDD;
+}
+.result > span{
+	margin-left: 15px;
+}
+.infoContainer{
+	display: block;
+	margin-bottom: 10px;
+}
+.error{
+	margin: 20px;
+}
+.block{
+	display: block;
+}
+#searchInput{
+	margin-top: 20px;
+}
+.i-right{
+	margin-left: 5px;
+	margin-right: 3px;
+}
+.selected{
+	margin: 3px;
+}
+.selected > ul{
+	background-color: #444;
+	border-radius: 3px;
+	padding: 5px;
+}
+.selected > ul > li{
+	margin: 3px;
+}
+.msg-body{
+	padding: 10px;
+	border: 1px solid #EEE;
+}
+.msg-body > .tiny{
+	font-size: .7em;
+}
+.tiny.alert-info{
+	padding: 3px;
+}
+.clients{
+
+}
+.clients button{
+	display: block;
+	margin: 3px;
+	width: 350px;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 2px;
+}
+#urgent{
+	margin-top: 10px;
+	font-size: 1.3em;
+	font-weight: 100;
+}
+.urgent{
+	background-color: red !important;
+	font-size: 1.2em;
+	color: white;
+}
+.urgent .btn{
+	background-color: white;
+	color: black;
+	border-color: black;
+}

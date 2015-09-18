@@ -1,0 +1,16 @@
+{
+    "integrationUser": {
+        "systemAdmin": false
+    },
+    "templates": [],
+    "osapps": [
+        {
+            "name": "CDC UI",
+            "id": "4ed8a357-e2ba-5279-9893-425ee1733717",
+            "appPath": "4ed8a357e2ba52799893425ee1733717",
+            "url": "/public/apps/simpleapp/app.xml"
+        }
+    ],
+    "storageDefinitions": [],
+    "jabCartridges": []
+}

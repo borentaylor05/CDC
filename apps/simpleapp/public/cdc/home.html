@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<!--<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" type="text/css" media="screen" /> -->
+<!--[if IE 9]>
+    <script src="//cdn.rawgit.com/jpillora/xdomain/0.7.3/dist/xdomain.min.js" slave="https://lit-inlet-2632.herokuapp.com/web/IE9/proxy.html"></script>
+<![endif]-->
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="stylesheet" href="stylesheets/bootstrap.min.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="stylesheets/cdc/main.css" type="text/css" media="screen" />
+
+ <div class="main row" ng-app="App" ng-controller="cdcController as cdc">
+	<div class="col-xs-9 contentColumn">
+		<div class="row headerContainer">
+			<div class="col-xs-12">
+				<ul class="breadcrumb blue text-left"></ul>
+				<h2 class="header">
+					<img src="images/cdc/CDC_image_1.png" alt="">
+				</h2>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row" check-width>
+				<div class="col-xs-12">
+					<div class="row">
+						<div class="col-xs-7">
+							<div class="searchContainer">
+								<i class="fa fa-sort-alpha-asc si"></i>
+								<label>Search A to Z List: &nbsp</label>
+								<loader loading="cdc.loading.topics" size="1em"></loader>
+								<button class="btn btn-xs round" ng-click="cdc.getAllTopics('A','E')">A-D</button>
+								<button class="btn btn-xs round" ng-click="cdc.getAllTopics('E','K')">E-J</button>
+								<button class="btn btn-xs round" ng-click="cdc.getAllTopics('K','S')">K-R</button>
+								<button class="btn btn-xs round" ng-click="cdc.getAllTopics('S','Z')">S-Z</button>
+								<input ng-model="cdc.dualSearch" type="checkbox" name="both" id="check" checked> Auto Search PRs 
+								<form ng-submit="cdc.searchTopics(data.atoz)" class="blue-top">
+									<div class="input-group">
+										<span class="input-group-btn">
+											<button class="custom btn btn-sm"><i class="fa fa-search fa-2x"></i></button>
+										</span>
+										<input type="text" class="form-control custom" ng-model="data.atoz" placeholder="search or select a range">
+									</div>
+								</form>
+								<div el-width="94%" class="dropdown" ng-if="cdc.topics.length > 0">
+									<div el-width="487px" class="topic-header">
+										<p>Matches for: 
+											<span>{{ cdc.topicSearchTerm }}</span> 
+											<i class="pull-right fa fa-times-circle" ng-click="cdc.close('atoz')"></i>
+										</p>
+									</div>
+									<ul class="topics">
+										<li class="topic" ng-click="cdc.getTopic(topic)" ng-repeat="topic in cdc.topics | filter:data.atoz"> 
+											<i class="fa fa-plus more"></i>
+											<span>{{ topic.topic }} </span>
+											<ul class="info" ng-if="cdc.isCurrentTopic(topic)">
+												<li>AKA: {{ cdc.topicInfo.aka }} </li>
+												<li ng-class="cdc.topicInfo.scope == 'ESCALATE' ? 'esc' : 'none'">
+													Scope: {{ cdc.topicInfo.scope }} 
+												</li>
+												<li>Notes: {{ cdc.topicInfo.notes }} </li>
+												<li>Owner: {{ cdc.topicInfo.owner }} </li>
+												<li>Link: <span ng-bind-html="cdc.topicInfo.cdc_link | linky"></span> </li>
+												<li>Program Flow: <span ng-bind-html="cdc.topicInfo.program_flow | linky"></span> </li>
+												<li>Spanish? {{ cdc.topicInfo.spanish ? "YES" : "NO" }} </li>
+												<li>PRs? {{ cdc.topicInfo.pr ? "YES" : "NO" }} </li>
+											</ul>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-5">
+							<div class="searchContainer">
+								<i class="fa fa-comments si"></i>
+								<label for="pr">PR Search</label>
+								<loader loading="cdc.loading.prs" size="1em"></loader>
+								<form ng-submit="cdc.prSearch(data.pr)" class="blue-top">
+									<div class="input-group">
+										<span class="input-group-btn">
+											<button class="custom btn btn-sm"><i class="fa fa-search fa-2x"></i></button>
+										</span>
+										<input name="pr" type="text" class="form-control custom" ng-model="data.pr" placeholder="{{data.atoz.length > 0 ? data.atoz : 'search for prs'}}">
+									</div>
+								</form>
+								<div el-width="92%" class="dropdown" ng-if="cdc.prs.length > 0">
+									<div el-width="328px" class="topic-header">
+										<p>Matches for: 
+											<span style="font-size: .6em;">{{ cdc.prSearchTerm | limitTo : 15 : 0 }}</span> 
+											<i class="pull-right fa fa-times-circle" ng-click="cdc.close('pr')"></i>
+										</p>
+									</div>
+									<ul class="topics">
+										<li class="pr topic" ng-repeat="pr in cdc.prs"> 
+											<div open-overlay="cdc.showDocOverlay" 
+												opendoc="{{cdc.getDocNum(pr)}}" 
+												get-comments="cdc.getComments(doc)">
+												<i class="more fa fa-file-text"></i>
+												<span> {{ pr.subject }} </span>
+											</div>
+											<a class="sublink" target="_blank" ng-href="{{pr.resources.html.ref}}">
+												Open in New Tab
+											</a>
+										</li>									
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row ">
+						<div class="col-xs-7">
+							<div class="searchContainer">
+								<i class="fa fa-book si"></i>
+								<label>Address Book</label>
+								<loader loading="cdc.loading.ab" size="1em"></loader>
+								<form class="blue-top">
+									<div class="input-group">
+										<span class="input-group-btn">
+											<button class="custom btn btn-sm"><i class="fa fa-search fa-2x"></i></button>
+										</span>
+										<input type="text" class="form-control custom" ng-model="ab" placeholder="begin typing to see filtered results">
+									</div>
+								</form>
+								<div el-width="94%" class="dropdown" ng-if="ab.length > 0">
+									<div el-width="487px" class="topic-header">
+										<p>Matches for: <span>{{ ab }}</span> <i class="pull-right fa fa-times-circle" ng-click="cdc.close('ab')"></i></p>
+									</div>
+									<ul class="topics">
+										<li class="topic" ng-click="cdc.getEntry(entry, $event)" ng-repeat="entry in cdc.entries | filter:ab"> 
+											<i ng-hide="entry == cdc.currentEntry" class="more fa fa-plus"></i>
+											<i ng-show="entry == cdc.currentEntry" ng-click="cdc.emptyMe(cdc.currentEntry)" class="more fa fa-minus"></i>
+											<span>{{ entry.ProgramDescription }} </span>
+											<span class="tiny" ng-if="entry.AlternateTopicName" >AKA: {{ entry.AlternateTopicName }} </span>
+											<ul class="info" ng-if="cdc.isCurrentEntry(entry) && !cdc.emptied" ng-click="cdc.stopProp($event)">
+												<li>Owner: {{ cdc.entryInfo.Owner }} </li>
+												<li>Email: {{ cdc.entryInfo.EmailAddress }} </li>
+												<li>Comments: {{ cdc.entryInfo.CommentText }} </li>
+												<li>First Name: {{ cdc.entryInfo.FirstName }} </li>
+												<li>Last Name: {{ cdc.entryInfo.LastName }} </li>
+												<li>Work Phone: {{ cdc.entryInfo.WorkPhone }} </li>
+											</ul>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-5">
+							<div class="searchContainer">
+								<i class="fa fa-globe si"></i>
+								<label for="pr">Country Search</label>
+								<form class="blue-top">
+									<div class="input-group">
+										<span class="input-group-btn">
+											<button class="custom btn btn-sm"><i class="fa fa-search fa-2x"></i></button>
+										</span>
+										<input name="countries" type="text" class="form-control custom" ng-model="data.countries" placeholder="search for countries">
+									</div>
+								</form>
+								<div el-width="92%" class="dropdown" ng-if="data.countries.length > 0">
+									<div el-width="328px" class="topic-header">
+										<p>Matches for: 
+											<span>{{ data.countries }}</span> 
+											<i class="pull-right fa fa-times-circle" ng-click="cdc.close('countries')"></i>
+										</p>
+									</div>
+									<ul class="topics">
+										<li class="topic" 
+											ng-repeat="country in cdc.countries | filter:data.countries"
+											open-overlay="cdc.showDocOverlay" 
+											opendoc="{{country.doc}}" 
+											get-comments="cdc.getComments(doc)"> 
+											<i class="more fa fa-file-text"></i>
+											<span> {{ country.name }} </span>
+										</li>										
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-6 link-group">
+							<div class="row jaFilter">
+								<h1 class="col-xs-7">Recent Docs</h1>
+								<div class="input-group col-xs-5">
+									<span class="input-group-btn">
+										<button class="custom btn btn-sm"><i class="fa fa-filter"></i></button>
+									</span>
+									<input type="text" class="form-control custom" ng-model="pf" placeholder="filter recent docs">
+								</div>
+							</div>
+							<ul class="links">
+								<li ng-repeat="doc in cdc.recentDocs | filter:pf">
+									<a target="_blank" ng-href="{{ doc.resources.html.ref }}">
+									<i class="fa fa-circle"></i>
+									{{ doc.subject }}
+								</li>
+							</ul>
+							<h1>Quick Links</h1>
+							<ul class="links">
+								<li>
+									<a href="https://gettested.cdc.gov/" target="_blank" >
+										<i class="fa fa-circle"></i>
+										Get Tested – National HIV and STD Testing
+									</a>
+								</li>
+								<li>
+									<a href="http://www.cdc.gov/mmwr/international/relres.html" target="_blank" >
+										<i class="fa fa-circle"></i>
+										State or Territorial Health Departments
+									</a>
+								</li>
+								<li>
+									<a href="http://www.cdc.gov/vaccines/pubs/pinkbook/index.html" target="_blank" >
+										<i class="fa fa-circle"></i>
+										Pink Book – Vaccines and Immunization
+									</a>
+								</li>
+								<li>
+									<a href="http://wwwnc.cdc.gov/travel/page/yellowbook-home" target="_blank" >
+										<i class="fa fa-circle"></i>
+										Yellow Book – Traveler’s Health 
+									</a>
+								</li>
+								<li>
+									<a href="http://wwwnc.cdc.gov/travel/destinations/list/" target="_blank" >
+										<i class="fa fa-circle"></i>
+										Traveler’s Health - Destinations
+									</a>
+								<li ng-repeat="doc in cdc.quicklinks" >
+									<a 	opendoc
+									open-overlay="cdc.showDocOverlay"
+									get-comments="cdc.getComments(doc)"
+									dynamic="{{cdc.getDocNum(doc)}}">
+									<i class="fa fa-circle"></i>
+									{{ doc.subject }}
+								</li>
+							</ul>														
+						</div>
+						<div class="col-xs-6 link-group">
+							<div class="row jaFilter">
+								<h1 class="col-xs-5">Job Aids</h1>
+								<div class="input-group col-xs-7">
+									<span class="input-group-btn">
+										<button class="custom btn btn-sm"><i class="fa fa-filter"></i></button>
+									</span>
+									<input type="text" class="form-control custom" ng-model="ja" placeholder="filter job aids">
+								</div>
+							</div>
+							<ul class="links">
+								<li ng-repeat="doc in cdc.jobaids | filter:ja">
+									<i class="fa fa-circle off"></i>
+									<a 	opendoc 
+										ng-if="!cdc.hasAttachment('cdc-jobaids', doc)"
+										open-overlay="cdc.showDocOverlay"
+										get-comments="cdc.getComments(doc)"
+										dynamic="{{cdc.getDocNum(doc)}}">
+										{{ doc.subject }}
+									</a>
+									<a 	target="_blank"
+										ng-if="cdc.hasAttachment('cdc-jobaids', doc)" 
+										ng-href="{{doc.resources.html.ref}}">
+										{{ doc.subject }}
+									</a>																		
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-3 gamificationColumn">
+		<div class=" widgetContainer">
+			<div class=" gameContainer">
+				<div class="row">
+					<div class="col-xs-12 htWrapper">
+						<a class="ht" open-overlay="cdc.showDocOverlay" open-overlay="cdc.showDocOverlay" opendoc="DOC-214202" get-comments="cdc.getComments(doc)">
+							<span>HOT TOPICS</span>
+						</a>
+					</div>
+				</div>
+				<div class="row text-center">
+					<h4 class="gHeader">Top Missions</h4>
+					<div class="gInfo">Hover over a badge to see its description.</div>
+					<div class="col-xs-1 text-center gBadge" ng-repeat="m in cdc.top_three">						
+						<img show-title game="m" ng-src="{{m.badge_url}}" ng-alt="{{ m.bunchball_name }}" >
+						<div class="gTitle hide"> {{ m.bunchball_name }} </div>
+						<div class="gDescContainer" ng-if="m.game_type == 'EmpowerMission'">
+							<span class="gDesc"> {{ m.game.metric_name }} </span>
+							<span class="gDesc">Target: {{ m.game.target }} </span>
+						</div>
+						<div class="gDescContainer" ng-if="m.game_type == 'JiveMission'">
+							<span class="gDesc"> {{ m.bunchball_name }} </span>
+						</div>
+					</div>
+					<div style="clear: both;"></div>
+				</div>
+			</div>
+			<leaderboard people="cdc.leaders" user="cdc.currentUser"></leaderboard>
+		</div>
+	</div>
+	
+	
+	<overlay-two 
+		loading="cdc.postingComment" 
+		new-comment="cdc.newComment(body)" 
+		show-new="cdc.showNew" 
+		set-show-new="cdc.setShowNew()" 
+		comments="cdc.testComments" 
+		show-on="cdc.showDocOverlay"
+	>
+	</overlay-two>
+	<unread-messages></unread-messages> 
+</div>
+<script type="text/javascript" src="javascripts/jquery.min.js"></script>
+<script type="text/javascript" src="javascripts/angular.min.js"></script>
+<script type="text/javascript" src="javascripts/angular-sanitize.min.js"></script>
+<script type="text/javascript" src="javascripts/navigation.js"></script>
+<script type="text/javascript" src="javascripts/user.js"></script>
+<script type="text/javascript" src="javascripts/util.js"></script>
+<script type="text/javascript" src="javascripts/ng/apps/MasterApp.js"></script>
+<script type="text/javascript" src="javascripts/ng/controllers/messages/UnreadMessages.js"></script>
+<script type="text/javascript" src="javascripts/cdc/ng-cdc.js"></script>
+<script type="text/javascript">
+	
+</script>

@@ -1,0 +1,112 @@
+a{
+	cursor: pointer;
+}
+#all{
+	background-color: #333;
+}
+.gameContainer{
+	width: 1000px;
+	padding: 50px;
+	padding-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #EEE;
+}
+.gameHeader{
+	text-align: center;
+}
+.section{
+	overflow: auto;
+	max-height: 600px;
+}
+.leaderLink{
+	color: black;
+}
+.leaderLink:hover, .leader:hover{
+	cursor: pointer;
+	background-color: #DDD !important;
+	color: black !important;
+	text-decoration: none;
+}
+.leader{
+	margin: 10px;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+	border-bottom: 2px solid #CCC;
+}
+.leader > .image{
+
+}
+.leader > .image img{
+	width: 50px;
+	height: 50px;
+	border-radius: 3px;
+	-o-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+}
+.missionLink{
+	color: black;
+}
+.missionLink:hover{
+	text-decoration: none;
+	color: black;
+}
+.mission{
+	padding: 2px;
+	margin: 10px;
+	box-shadow: 0 1px 3px 0px #333;
+	border-radius: 3px;
+	-o-border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+}
+.mission > .header{
+	border-bottom: 2px solid #CCC;
+	padding: 5px;
+}
+.mission > .header > .image > img{
+	width: 50px;
+	height: 50px;
+}
+.mission > .header > .inner{
+	float: left;
+}
+.mission > .header > .inner > span{
+	margin-left: 10px;
+	display: block;
+}
+.mission > .header > .inner > .name{
+	font-size: 1.7em;
+	vertical-align: middle;
+}
+.mission > .header > .inner > .completed{
+	font-size: .6em;
+}
+.mission > .body{
+	padding: 10px;
+}
+.mission > .body > .desc{
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+.mission > .body > .progress{
+	margin-bottom: 4px;
+}
+.metrics > .metricType > h4{
+	font-weight: 200;
+	margin-bottom: 3px;
+}
+table{
+	width: 90%;
+	border: 1px solid #CCC;
+}
+table td{
+	padding: 4px;
+	font-size: .8em;
+	font-weight: 200;
+}
